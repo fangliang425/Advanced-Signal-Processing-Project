@@ -16,21 +16,16 @@ def define_cnn(features=None, hparams=None):
     """Defines a convolutional neural network model, without the classifier layer."""
     net = tf.expand_dims(features, axis=3)
     with slim.arg_scope([slim.conv2d],
-                        kernel_size=[3, 3], stride=1, padding='SAME'), \
+                        stride=1, padding='SAME'), \
          slim.arg_scope([slim.max_pool2d],
-                        kernel_size=[2, 2], stride=2, padding='SAME'):
-        net = slim.conv2d(net, 64, scope='conv1')
-        net = slim.max_pool2d(net, scope='pool1')
-        net = slim.conv2d(net, 128, scope='conv2')
-        net = slim.max_pool2d(net, scope='pool2')
-        net = slim.repeat(net, 2, slim.conv2d, 256, scope='conv3')
-        net = slim.max_pool2d(net, scope='pool3')
-        net = slim.repeat(net, 2, slim.conv2d, 512, scope='conv4')
-        net = slim.max_pool2d(net, scope='pool4')
-
+                        stride=2, padding='SAME'):
+        net = slim.conv2d(net, 100, kernel_size=[7, 7])
+        net = slim.max_pool2d(net, kernel_size=[3, 3])
+        net = slim.conv2d(net, 150, kernel_size=[5, 5])
+        net = slim.max_pool2d(net, kernel_size=[3, 3])
+        net = slim.conv2d(net, 200, kernel_size=[3, 3])
+        net = tf.reduce_max(net, axis=[1, 2], keepdims=True)
         net = slim.flatten(net)
-        net = slim.repeat(net, 2, slim.fully_connected, 4096, scope='fc1')
-
     return net
 
 
