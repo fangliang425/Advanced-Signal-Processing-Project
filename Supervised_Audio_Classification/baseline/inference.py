@@ -37,7 +37,7 @@ def predict(model_name=None, hparams=None, test_clip_dir=None,
             class_map = {int(row[0]): row[1] for row in csv.reader(open(class_map_path))}
 
             test_clips = sorted(os.listdir(test_clip_dir))
-            pred_writer = csv.DictWriter(open(predictions_csv_path, 'w'), fieldnames=['fname', 'label'])
+            pred_writer = csv.DictWriter(open(predictions_csv_path, 'w', newline=''), fieldnames=['fname', 'label'])
             pred_writer.writeheader()
 
             for (i, test_clip) in enumerate(test_clips):
