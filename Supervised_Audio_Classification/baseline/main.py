@@ -64,34 +64,36 @@ def parse_flags():
     # Flags common to all modes.
     all_modes_group = parser.add_argument_group('Flags common to all modes')
     all_modes_group.add_argument(
-        '--mode', type=str, choices=['train', 'eval', 'inference'], required=True,
+        '--mode', type=str, choices=['train', 'eval', 'inference'], required=False,
+        default='train',
         help='Run one of training, evaluation, or inference.')
     all_modes_group.add_argument(
-        '--model', type=str, choices=['cnn', 'mlp'], default='cnn', required=True,
+        '--model', type=str, choices=['cnn', 'mlp'], default='cnn', required=False,
         help='Name of a model architecture. Currently, one of "cnn" or "mlp".')
     all_modes_group.add_argument(
         '--hparams', type=str, default='',
         help='Model hyperparameters in comma-separated name=value format.')
     all_modes_group.add_argument(
-        '--class_map_path', type=str, default='', required=True,
+        '--class_map_path', type=str, required=False,
+        default='/wrk/xiehuang/DONOTREMOVE/FSD2018/class_map.csv',
         help='Path to CSV file containing map between class index and name.')
 
     # Flags for training only.
     training_group = parser.add_argument_group('Flags for training only')
     training_group.add_argument(
-        '--train_clip_dir', type=str, default='',
+        '--train_clip_dir', type=str, default='/wrk/xiehuang/DONOTREMOVE/FSD2018/audio/train',
         help='Path to directory containing training clips.')
     training_group.add_argument(
-        '--train_csv_path', type=str, default='',
+        '--train_csv_path', type=str, default='/wrk/xiehuang/DONOTREMOVE/FSD2018/train.csv',
         help='Path to CSV file containing training clip filenames and labels.')
     training_group.add_argument(
-        '--train_dir', type=str, default='',
+        '--train_dir', type=str, default='/wrk/xiehuang/DONOTREMOVE/FSD2018/baseline/train_dir',
         help='Path to a directory which will hold model checkpoints and other outputs.')
 
     # Flags common to evaluation and inference.
     eval_inference_group = parser.add_argument_group('Flags for evaluaton and inference')
     eval_inference_group.add_argument(
-        '--checkpoint_path', type=str, default='',
+        '--checkpoint_path', type=str, default='/wrk/xiehuang/DONOTREMOVE/FSD2018/baseline/train_dir/model.ckpt-<N>',
         help='Path to a model checkpoint to use for evaluation or inference.')
 
     # Flags for evaluation only.
@@ -106,10 +108,10 @@ def parse_flags():
     # Flags for inference only.
     inference_group = parser.add_argument_group('Flags for inference only')
     inference_group.add_argument(
-        '--test_clip_dir', type=str, default='',
+        '--test_clip_dir', type=str, default='/wrk/xiehuang/DONOTREMOVE/FSD2018/audio/test',
         help='Path to directory containing test clips.')
     inference_group.add_argument(
-        '--predictions_csv_path', type=str, default='',
+        '--predictions_csv_path', type=str, default='/wrk/xiehuang/DONOTREMOVE/FSD2018/predictions.csv',
         help='Path to a CSV file in which to store predictions.')
 
     flags = parser.parse_args()
