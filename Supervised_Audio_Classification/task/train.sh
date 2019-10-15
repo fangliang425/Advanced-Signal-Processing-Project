@@ -10,7 +10,7 @@
 #SBATCH --ntasks-per-node=1
 #SBATCH --cpus-per-task=1
 #SBATCH -t 12:00:00
-#SBATCH --mem-per-cpu=2000
+#SBATCH --mem-per-cpu=12000
 #SBATCH --mail-type=END
 #SBATCH --mail-user=huang.xie@tuni.fi
 
