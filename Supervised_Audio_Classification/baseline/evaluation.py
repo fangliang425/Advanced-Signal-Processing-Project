@@ -105,8 +105,8 @@ def evaluate(model_name=None, hparams=None, eval_csv_path=None, eval_clip_dir=No
                 print(class_map[actual_class], [class_map[index] for index in predicted_classes], ap)
 
                 # Periodically print per-class and overall AP stats.
-                if i % 50 == 0:
-                    print_maps(ap_sums=ap_sums, ap_counts=ap_counts, class_map=class_map)
+                # if i % 50 == 0:
+                    # print_maps(ap_sums=ap_sums, ap_counts=ap_counts, class_map=class_map)
                 sys.stdout.flush()
 
             # Final AP stats.
